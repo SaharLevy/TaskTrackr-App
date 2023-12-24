@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import Task from "../models/task";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
@@ -34,4 +35,12 @@ export async function createTask(task: TaskInput): Promise<Task> {
     body: JSON.stringify(task),
   });
   return response.json();
+}
+
+export async function deleteTaskById(taskId: ObjectId) {
+  const response = await fetchData(`/api/deleteTask/${taskId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.status;
 }

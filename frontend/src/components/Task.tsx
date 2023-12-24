@@ -10,10 +10,7 @@ interface TaskProps {
 }
 
 const TaskComponent = (props: TaskProps, className: string) => {
-  let { title, text, priority, createdAt, updatedAt } = props.task;
-  if (createdAt === undefined) {
-    createdAt = updatedAt = new Date().toString();
-  }
+  let { _id, title, text, priority, createdAt, updatedAt } = props.task;
 
   const priorityClass: any = {
     Low: styles.LowPriority,

@@ -9,20 +9,22 @@ const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddTaskDialog, setAddTaskDialog] = useState(false);
 
-  useEffect(() => {
-    async function loadTasks() {
-      try {
-        const tasks = await TasksApi.fetchTasks();
-        setTasks(tasks);
-      } catch (error) {
-        alert(error);
-      }
+  async function loadTasks() {
+    try {
+      const tasks = await TasksApi.fetchTasks();
+      setTasks(tasks);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+      alert("Failed to fetch tasks. See console for details.");
     }
+  }
+
+  useEffect(() => {
     loadTasks();
   }, []);
 
   const updateTaskList = (newTask: Task) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    loadTasks();
   };
   return (
     <Container className="pe-0 ps-0">

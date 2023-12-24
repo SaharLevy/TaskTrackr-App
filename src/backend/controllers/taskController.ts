@@ -48,3 +48,26 @@ export const createTask = async (
     next(error);
   }
 };
+
+export const deleteTask = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const taskId = req.params.taskId;
+  try {
+    const deletedTask = await Task.findByIdAndDelete(taskId);
+
+    if (!deletedTask) {
+      return res
+        .status(404)
+        .json({ success: false, message: "couldnt delete task" });
+    }
+    return res.json({
+      success: true,
+      message: "task has been deleted successfuly",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
