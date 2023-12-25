@@ -4,6 +4,7 @@ import TaskComponent from "./Task";
 import { useEffect, useState } from "react";
 import Task from "../models/task";
 import * as TasksApi from "../network/tasks_api";
+import { ObjectId } from "mongoose";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -17,6 +18,13 @@ const TaskList = () => {
       console.error("Error fetching tasks:", error);
       alert("Failed to fetch tasks. See console for details.");
     }
+  }
+
+  async function handlerDeleteTask(deletedTaskId: ObjectId) {
+    const deleteResponse = await TasksApi.deleteTaskById(deletedTaskId);
+    setTasks((prevTasks) =>
+      prevTasks.filter((task) => task._id !== deletedTaskId)
+    );
   }
 
   useEffect(() => {

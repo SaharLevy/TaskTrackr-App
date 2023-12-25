@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from "mongoose";
 import Task from "../models/task";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
@@ -42,5 +42,6 @@ export async function deleteTaskById(taskId: ObjectId) {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
+
   return response.status;
 }
