@@ -8,8 +8,8 @@ import * as tasks_api_functions from "../network/tasks_api";
 
 interface AddTaskDialogProps {
   onDismiss: () => void;
-  onTaskSaved: (task: Task) => void;
-  updateTaskList: (task: Task) => void;
+  onTaskSaved: () => void;
+  updateTaskList: () => void;
 }
 
 const AddTaskDialog = ({
@@ -36,10 +36,11 @@ const AddTaskDialog = ({
         text: data.text,
         priority: TaskPriority,
       };
+      onTaskSaved();
       const taskResponse = await tasks_api_functions.createTask(taskData);
-      onTaskSaved(taskResponse);
-      updateTaskList(taskData);
-      //alert("form has been submited!");
+      // i should add a spinner animation here because there is a delay, the cause is fetching.
+      //
+      updateTaskList();
     } catch (error) {
       console.log(error);
       alert(error);

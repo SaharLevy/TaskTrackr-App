@@ -21,17 +21,17 @@ const TaskList = () => {
   }
 
   async function handlerDeleteTask(deletedTaskId: ObjectId) {
-    const deleteResponse = await TasksApi.deleteTaskById(deletedTaskId);
     setTasks((prevTasks) =>
       prevTasks.filter((task) => task._id !== deletedTaskId)
     );
+    await TasksApi.deleteTaskById(deletedTaskId);
   }
 
   useEffect(() => {
     loadTasks();
   }, []);
 
-  const updateTaskList = (newTask: Task) => {
+  const updateTaskList = () => {
     loadTasks();
   };
   return (
@@ -43,8 +43,8 @@ const TaskList = () => {
       />
       <Row xs={1} md={2} xl={3} className="g-4">
         {tasks.map((task) => (
-          <Col key={task._id}>
-            <TaskComponent task={task} />
+          <Col key={task._id ? task._id.toString() : "no-id"}>
+            <TaskComponent task={task} deleteTask={handlerDeleteTask} />
           </Col>
         ))}
       </Row>

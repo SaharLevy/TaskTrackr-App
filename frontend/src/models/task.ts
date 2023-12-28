@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
 
 export default interface Task {
-  _id: ObjectId;
+  _id?: ObjectId;
   title: string;
   text?: string;
   priority: string;

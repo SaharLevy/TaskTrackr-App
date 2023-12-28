@@ -9,10 +9,11 @@ import * as TasksApi from "../network/tasks_api";
 interface TaskProps {
   task: Task;
   className?: React.CSSProperties;
+  deleteTask(deletedTaskId: ObjectId | undefined): void;
 }
 
-const TaskComponent = (props: TaskProps, className: string) => {
-  let { _id, title, text, priority, createdAt, updatedAt } = props.task;
+const TaskComponent = ({ task, className, deleteTask }: TaskProps) => {
+  let { _id, title, text, priority, createdAt, updatedAt } = task;
 
   const priorityClass: any = {
     Low: styles.LowPriority,
@@ -31,7 +32,14 @@ const TaskComponent = (props: TaskProps, className: string) => {
       <div className={styles.cardFooter}>
         <TaskTimeStamp timestamp={createdAt}>Created: </TaskTimeStamp>
         <TaskTimeStamp timestamp={updatedAt}>Last Updated: </TaskTimeStamp>
-        <Button variant="dark">Delete</Button>
+        <Button
+          variant="dark"
+          onClick={() => {
+            deleteTask(_id);
+          }}
+        >
+          Delete
+        </Button>
       </div>
     </Card>
   );

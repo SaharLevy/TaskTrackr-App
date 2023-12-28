@@ -6,7 +6,7 @@ import Task from "../models/task";
 interface AddTaskButtonProps {
   showAddTaskDialog: boolean;
   setAddTaskDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  updateTaskList: (newTask: Task) => void;
+  updateTaskList: () => void;
 }
 
 const AddTaskButton: React.FC<AddTaskButtonProps> = ({
