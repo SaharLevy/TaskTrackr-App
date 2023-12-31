@@ -1,7 +1,6 @@
 import { Button, Container } from "react-bootstrap";
 import AddTaskDialog from "./AddTaskDialog";
 import "../network/tasks_api";
-import Task from "../models/task";
 
 interface AddTaskButtonProps {
   showAddTaskDialog: boolean;

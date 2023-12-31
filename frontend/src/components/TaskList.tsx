@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Task from "../models/task";
 import * as TasksApi from "../network/tasks_api";
 import { ObjectId } from "mongoose";
+import OrderByButton from "./OrderByButton";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -36,11 +37,19 @@ const TaskList = () => {
   };
   return (
     <Container className="pe-0 ps-0">
-      <AddTaskButton
-        showAddTaskDialog={showAddTaskDialog}
-        setAddTaskDialog={setAddTaskDialog}
-        updateTaskList={updateTaskList}
-      />
+      <Row className="d-flex  justify-content-between ">
+        <Col xs="auto">
+          <OrderByButton />
+        </Col>
+        <Col className=" pe-0" xs="auto">
+          <AddTaskButton
+            showAddTaskDialog={showAddTaskDialog}
+            setAddTaskDialog={setAddTaskDialog}
+            updateTaskList={updateTaskList}
+          />
+        </Col>
+      </Row>
+
       <Row xs={1} md={2} xl={3} className="g-4">
         {tasks.map((task) => (
           <Col key={task._id ? task._id.toString() : "no-id"}>
