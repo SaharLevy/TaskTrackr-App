@@ -1,14 +1,25 @@
 import Dropdown from "react-bootstrap/Dropdown";
+import Task from "../models/task";
+import * as Sorts from "../HelperFunctions/TaskSorts";
 
-const OrderByButton = () => {
+interface orderByProps {
+  tasks: Task[];
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+}
+
+const OrderByButton: React.FC<orderByProps> = ({ tasks, setTasks }) => {
+  const handleOrderByPriority = () => {
+    const sortedTasks = Sorts.sortByPriority(tasks);
+    setTasks(sortedTasks);
+  };
   return (
     <Dropdown>
       <Dropdown.Toggle id="dropdown-basic">Order By</Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Priority</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Created At</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Updated At</Dropdown.Item>
+        <Dropdown.Item onClick={handleOrderByPriority}>Priority</Dropdown.Item>
+        <Dropdown.Item>Created At</Dropdown.Item>
+        <Dropdown.Item>Updated At</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );

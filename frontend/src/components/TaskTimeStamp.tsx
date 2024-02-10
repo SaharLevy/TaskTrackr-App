@@ -1,3 +1,5 @@
+import styles from "../styles/TaskPage.module.css";
+
 const TaskTimeStamp = ({
   timestamp,
   children,
@@ -28,7 +30,7 @@ const TaskTimeStamp = ({
   const formattedTimestamp = `${formattedDate}, ${formattedTime}`;
 
   return (
-    <div>
+    <div className={`${styles.taskTimeStamp}`}>
       {children}
       {formattedTimestamp}
     </div>

@@ -39,7 +39,7 @@ const TaskList = () => {
     <Container className="pe-0 ps-0">
       <Row className="d-flex  justify-content-between ">
         <Col xs="auto">
-          <OrderByButton />
+          <OrderByButton tasks={tasks} setTasks={setTasks} />
         </Col>
         <Col className=" pe-0" xs="auto">
           <AddTaskButton
