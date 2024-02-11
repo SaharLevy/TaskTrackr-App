@@ -3,7 +3,7 @@ import "../styles/TaskPriority.css";
 import { useState } from "react";
 import Task from "../models/task";
 import { useForm } from "react-hook-form";
-import { TaskInput } from "../network/tasks_api";
+//import { TaskInput } from "../network/tasks_api";
 import * as tasks_api_functions from "../network/tasks_api";
 
 interface AddTaskDialogProps {
@@ -22,7 +22,7 @@ const AddTaskDialog = ({
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm<TaskInput>();
+  } = useForm<Task>();
   //const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handlePriorityClick = (priority: any) => {

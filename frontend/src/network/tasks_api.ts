@@ -20,13 +20,13 @@ export async function fetchTasks(): Promise<Task[]> {
   return response.json();
 }
 
-export interface TaskInput {
+/*export interface TaskInput {
   title: string;
   text?: string;
   priority: string;
-}
+}*/
 
-export async function createTask(task: TaskInput): Promise<Task> {
+export async function createTask(task: Task): Promise<Task> {
   const response = await fetchData("api/createTask", {
     method: "POST",
     headers: {
