@@ -11,4 +11,6 @@ router.post("/api/createTask", taskController.createTask);
 
 router.delete("/api/deleteTask/:taskId", taskController.deleteTask);
 
+router.put("/api/updateTask/:taskId", taskController.updateTask);
+
 export default router;

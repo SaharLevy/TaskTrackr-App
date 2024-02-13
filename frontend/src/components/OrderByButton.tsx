@@ -12,14 +12,22 @@ const OrderByButton: React.FC<orderByProps> = ({ tasks, setTasks }) => {
     const sortedTasks = Sorts.sortByPriority(tasks);
     setTasks(sortedTasks);
   };
+  const handleOrderByDate = (orderBy: "createdAt" | "updatedAt") => {
+    const sortedTasks = Sorts.sortByDate(tasks, orderBy);
+    setTasks(sortedTasks);
+  };
   return (
     <Dropdown>
       <Dropdown.Toggle id="dropdown-basic">Order By</Dropdown.Toggle>
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={handleOrderByPriority}>Priority</Dropdown.Item>
-        <Dropdown.Item>Created At</Dropdown.Item>
-        <Dropdown.Item>Updated At</Dropdown.Item>
+        <Dropdown.Item onClick={() => handleOrderByDate("createdAt")}>
+          Created At
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => handleOrderByDate("updatedAt")}>
+          Updated At
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
