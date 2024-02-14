@@ -45,3 +45,12 @@ export async function deleteTaskById(taskId: ObjectId) {
 
   return response.status;
 }
+
+export async function updateTaskById(task: Task) {
+  const response = await fetchData(`/api/updateTask/${task._id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(task),
+  });
+  return response.status;
+}
