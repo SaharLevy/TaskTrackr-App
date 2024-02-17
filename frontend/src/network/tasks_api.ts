@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import Task from "../models/task";
+import Task from "../types/task";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
   const response = await fetch(input, init);

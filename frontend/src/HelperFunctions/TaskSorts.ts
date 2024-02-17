@@ -1,4 +1,4 @@
-import Task from "../models/task";
+import Task from "../types/task";
 
 export function sortByPriority(tasks: Task[]) {
   const priorityOrder = ["High", "Medium", "Low"];

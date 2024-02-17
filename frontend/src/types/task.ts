@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 
-export default interface Task {
+export default interface ITask {
   _id?: ObjectId;
   title: string;
   text?: string;

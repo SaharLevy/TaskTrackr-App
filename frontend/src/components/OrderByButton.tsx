@@ -1,10 +1,10 @@
 import Dropdown from "react-bootstrap/Dropdown";
-import Task from "../models/task";
+import ITask from "../types/task";
 import * as Sorts from "../HelperFunctions/TaskSorts";
 
 interface orderByProps {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  tasks: ITask[];
+  setTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
 }
 
 const OrderByButton: React.FC<orderByProps> = ({ tasks, setTasks }) => {

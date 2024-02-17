@@ -1,18 +1,19 @@
 import styles from "../styles/Task.module.css";
 import { Card, Button } from "react-bootstrap";
-import Task from "../models/task";
+import ITask from "../types/task";
 import TaskTimeStamp from "./TaskTimeStamp";
 import TaskStyle from "../styles/TaskPage.module.css";
 import { ObjectId } from "mongoose";
 import * as TasksApi from "../network/tasks_api";
 
 interface TaskProps {
-  task: Task;
+  task: ITask;
   className?: React.CSSProperties;
   deleteTask(deletedTaskId: ObjectId | undefined): void;
+  onClick?(): void;
 }
 
-const TaskComponent = ({ task, className, deleteTask }: TaskProps) => {
+const Task = ({ task, className, deleteTask, onClick }: TaskProps) => {
   let { _id, title, text, priority, createdAt, updatedAt } = task;
 
   const priorityClass: any = {
@@ -23,6 +24,7 @@ const TaskComponent = ({ task, className, deleteTask }: TaskProps) => {
 
   return (
     <Card
+      onClick={onClick}
       className={`${styles.taskCard} ${TaskStyle.task} ${priorityClass[priority]}`}
     >
       <Card.Body className={styles.cardBody}>
@@ -34,7 +36,8 @@ const TaskComponent = ({ task, className, deleteTask }: TaskProps) => {
         <TaskTimeStamp timestamp={updatedAt}>Last Updated: </TaskTimeStamp>
         <Button
           variant="dark"
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             deleteTask(_id);
           }}
         >
@@ -45,4 +48,4 @@ const TaskComponent = ({ task, className, deleteTask }: TaskProps) => {
   );
 };
 
-export default TaskComponent;
+export default Task;

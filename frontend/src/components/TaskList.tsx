@@ -1,15 +1,18 @@
 import { Col, Container, Row } from "react-bootstrap";
 import AddTaskButton from "./AddTaskButton";
-import TaskComponent from "./Task";
+import Task from "./Task";
 import { useEffect, useState } from "react";
-import Task from "../models/task";
+import ITask from "../types/task";
 import * as TasksApi from "../network/tasks_api";
 import { ObjectId } from "mongoose";
 import OrderByButton from "./OrderByButton";
+import UpdateTaskDialog from "./UpdateTaskDialog";
 
 const TaskList = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [showAddTaskDialog, setAddTaskDialog] = useState(false);
+  const [showUpdateTaskDialog, setUpdateTaskDialog] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
   async function loadTasks() {
     try {
@@ -27,6 +30,12 @@ const TaskList = () => {
     );
     await TasksApi.deleteTaskById(deletedTaskId);
   }
+
+  const handleTaskClick = (task: ITask) => {
+    console.log("Task clicked:", task);
+    setSelectedTask(task);
+    setUpdateTaskDialog(true);
+  };
 
   useEffect(() => {
     loadTasks();
@@ -49,14 +58,24 @@ const TaskList = () => {
           />
         </Col>
       </Row>
-
       <Row xs={1} md={2} xl={3} className="g-4">
         {tasks.map((task) => (
           <Col key={task._id ? task._id.toString() : "no-id"}>
-            <TaskComponent task={task} deleteTask={handlerDeleteTask} />
+            <Task
+              onClick={() => handleTaskClick(task)}
+              task={task}
+              deleteTask={handlerDeleteTask}
+            />
           </Col>
         ))}
       </Row>
+      {selectedTask && (
+        <UpdateTaskDialog
+          setUpdateTaskDialog={setUpdateTaskDialog}
+          show={showUpdateTaskDialog}
+          task={selectedTask}
+        />
+      )}
     </Container>
   );
 };

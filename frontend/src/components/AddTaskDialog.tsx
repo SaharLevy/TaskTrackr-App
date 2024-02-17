@@ -1,7 +1,7 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import "../styles/TaskPriority.css";
 import { useState } from "react";
-import Task from "../models/task";
+import ITask from "../types/task";
 import { useForm } from "react-hook-form";
 //import { TaskInput } from "../network/tasks_api";
 import * as tasks_api_functions from "../network/tasks_api";
@@ -22,16 +22,16 @@ const AddTaskDialog = ({
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm<Task>();
+  } = useForm<ITask>();
   //const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handlePriorityClick = (priority: any) => {
     SetTaskPriority(priority);
   };
 
-  async function onSubmit(data: Task) {
+  async function onSubmit(data: ITask) {
     try {
-      const taskData: Task = {
+      const taskData: ITask = {
         title: data.title,
         text: data.text,
         priority: TaskPriority,

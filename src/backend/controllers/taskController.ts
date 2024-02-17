@@ -79,7 +79,6 @@ export const updateTask = async (
 ) => {
   const taskId = req.params.taskId; // Assuming taskId is in the route params, not the request body
   //const currentTime = new Date();
-
   try {
     const updatedTask = await Task.findByIdAndUpdate(taskId, req.body, {
       new: true,
@@ -97,9 +96,10 @@ export const updateTask = async (
       data: updatedTask,
     });
   } catch (error) {
-    console.error(error);
-    return res
+    next(error);
+    /*return res
       .status(500)
       .json({ success: false, message: "Internal server error" });
+  */
   }
 };
