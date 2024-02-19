@@ -14,7 +14,7 @@ const UpdateTaskDialog = ({
   const handleClose = () => setUpdateTaskDialog(false);
   return (
     <>
-      <Modal show onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
