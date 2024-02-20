@@ -74,6 +74,7 @@ const TaskList = () => {
           setUpdateTaskDialog={setUpdateTaskDialog}
           show={showUpdateTaskDialog}
           task={selectedTask}
+          updateTaskList={updateTaskList}
         />
       )}
     </Container>
