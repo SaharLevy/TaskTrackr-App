@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import "C:/Users/xvrui/Desktop/TaskTrackr/frontend/src/styles/CenterTheNavbar.css";
+import "C:/Full Stack Projects/TaskTrackr-App/frontend/src/styles/CenterTheNavbar.css";
 
 const MainNavBar = () => {
   return (
