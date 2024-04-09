@@ -1,6 +1,6 @@
-import Task from "../types/task";
+import ITask from "../types/task";
 
-export function sortByPriority(tasks: Task[]) {
+export function sortByPriority(tasks: ITask[]) {
   const priorityOrder = ["High", "Medium", "Low"];
 
   const sortedTasks = [...tasks].sort((taskA, taskB) => {
@@ -12,7 +12,7 @@ export function sortByPriority(tasks: Task[]) {
   return sortedTasks;
 }
 
-export function sortByPriorityLow(tasks: Task[]) {
+export function sortByPriorityLow(tasks: ITask[]) {
   const priorityOrder = ["Low", "Medium", "High"];
 
   const sortedTasks = [...tasks].sort((taskA, taskB) => {
@@ -25,9 +25,9 @@ export function sortByPriorityLow(tasks: Task[]) {
 }
 
 export function sortByDate(
-  tasks: Task[],
+  tasks: ITask[],
   sortBy: "createdAt" | "updatedAt"
-): Task[] {
+): ITask[] {
   const sortedTasks = [...tasks];
 
   sortedTasks.sort((taskA, taskB) => {
@@ -47,3 +47,26 @@ export function sortByDate(
 
   return sortedTasks;
 }
+
+export function countByPriority(tasks: ITask[]): {low: number, medium: number, high: number} {
+  let low = 0, medium = 0, high = 0;
+
+  tasks.forEach(task => {
+    switch(task.priority){
+      case 'Low':
+        low++;
+        break;
+      case 'Medium':
+        medium++;
+        break;
+      case 'High':
+        high++;
+        break;
+      default:
+        //any unexpected priorities, will come back to that on another time
+        break;
+    }
+    
+  });
+  return {low,medium,high}
+  }

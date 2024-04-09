@@ -7,6 +7,7 @@ import * as TasksApi from "../network/tasks_api";
 import { ObjectId } from "mongoose";
 import OrderByButton from "./OrderByButton";
 import UpdateTaskDialog from "./UpdateTaskDialog";
+import PriorityDataCard from "./PriorityDataCard";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -45,7 +46,10 @@ const TaskList = () => {
     loadTasks();
   };
   return (
-    <Container className="pe-0 ps-0">
+    <Container>
+      <Container>
+        <PriorityDataCard tasks={tasks}></PriorityDataCard>
+      </Container>
       <Row className="d-flex  justify-content-between ">
         <Col xs="auto">
           <OrderByButton tasks={tasks} setTasks={setTasks} />

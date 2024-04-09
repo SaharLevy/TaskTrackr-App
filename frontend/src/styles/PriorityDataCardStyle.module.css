@@ -1,0 +1,15 @@
+
+.PriorityContainer{
+    display: flex;
+    justify-content:flex-start;
+    border-radius: 1px;
+}
+.PriorityCardSize{}
+.PriorityCardTotalSize{}
+.PriorityTotal{
+
+}
+
+.PriorityLow{}
+.PriorityMedium{}
+.PriorityHigh{}
