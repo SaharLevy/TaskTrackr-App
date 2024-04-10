@@ -25,11 +25,17 @@ const PriorityDataCard = ({tasks, className}:PriorityDataCardInterface) => {
 
     return(
       <>
-        <div className={PriorityCardStyle.PriorityContainer}>
-          <div >{lowPriorityCount + mediumPriorityCount + highPriorityCount}</div>
-          <div className="PriorityLow">{lowPriorityCount}</div>
-          <div className="PriorityMedium">{mediumPriorityCount}</div>
-          <div className="PriorityHigh">{highPriorityCount}</div>
+        <div className={`${PriorityCardStyle.PriorityContainer}`}>
+          <div className={`${PriorityCardStyle.LeftSideDivs}`}>
+            <div className={`${PriorityCardStyle.PriorityTotal} ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}>
+              <p className={`${PriorityCardStyle.CenterText}`}>Total Tasks:</p>
+              {lowPriorityCount + mediumPriorityCount + highPriorityCount}</div>
+            <div className={`${PriorityCardStyle.PriorityLow} ${PriorityCardStyle.PriorityCardSize}`}>{lowPriorityCount}</div>
+          </div>
+          <div className={`${PriorityCardStyle.RightSideDivs}`}> 
+            <div className={`${PriorityCardStyle.PriorityMedium} ${PriorityCardStyle.PriorityCardSize}`}>{mediumPriorityCount}</div>
+            <div className={`${PriorityCardStyle.PriorityHigh} ${PriorityCardStyle.PriorityCardSize}`}>{highPriorityCount}</div></div>
+          <div className={`${PriorityCardStyle.Graph}`}></div>
         </div>
       </>
     );

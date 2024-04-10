@@ -2,14 +2,60 @@
 .PriorityContainer{
     display: flex;
     justify-content:flex-start;
-    border-radius: 1px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
 }
-.PriorityCardSize{}
+.LeftSideDivs{
+    display: flex;
+    flex-direction: column;
+}
+.RightSideDivs{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.PriorityCardSize{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 150px;
+    width: 150px;
+    box-shadow: 5px 3px 5px black;
+
+}
+.CenterText{
+    position: absolute; 
+    top: 0;
+    left: 50%;
+    translate: -50%;
+    width: 100%;
+}
+.PositionRelative{
+    position: relative;
+}
+
+
 .PriorityCardTotalSize{}
 .PriorityTotal{
-
+margin-bottom: 20px;
 }
 
 .PriorityLow{}
-.PriorityMedium{}
+.PriorityMedium{
+    margin-bottom: 20px;
+}
 .PriorityHigh{}
+.Graph{
+    height: 320px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 3px 5px black;
+    margin-left: 15px;
+}
