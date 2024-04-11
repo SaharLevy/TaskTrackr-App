@@ -5,7 +5,7 @@ import "C:/Full Stack Projects/TaskTrackr-App/frontend/src/styles/CenterTheNavba
 
 const MainNavBar = () => {
   return (
-    <Navbar bg="light" data-bs-theme="light">
+    <Navbar  data-bs-theme="light">
       <Container className="d-flex justify-content-center border-bottom ps-0 pe-0">
         <Navbar.Brand href="#home">TaskTrackr</Navbar.Brand>
         <Nav className="me-auto">

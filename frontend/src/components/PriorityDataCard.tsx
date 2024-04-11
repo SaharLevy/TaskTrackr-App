@@ -25,17 +25,31 @@ const PriorityDataCard = ({tasks, className}:PriorityDataCardInterface) => {
 
     return(
       <>
-        <div className={`${PriorityCardStyle.PriorityContainer}`}>
-          <div className={`${PriorityCardStyle.LeftSideDivs}`}>
+        <div className={`${PriorityCardStyle.PriorityContainer} ${PriorityCardStyle.PositionRelative}`}>
+            <h4 className={`${PriorityCardStyle.CenterTextTitle}`}>Priority Dashboard</h4>
+          <div className={`${PriorityCardStyle.PriorityDashboardContainer}`}>  
+            <div className={`${PriorityCardStyle.LeftSideDivs}`}>
+                <div className={`${PriorityCardStyle.PriorityTotal} ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}>
+                   <div className={`${PriorityCardStyle.PriorityFonts}`}>{lowPriorityCount + mediumPriorityCount + highPriorityCount}</div>
+                   <p className={`${PriorityCardStyle.CenterText}`}>Total Tasks</p>
+                </div>
+                <div className={`${PriorityCardStyle.PriorityLow} ${PriorityCardStyle.PriorityCardSize}`}>
+                  <div className={`${PriorityCardStyle.PriorityFonts}`}>{lowPriorityCount}</div>
+                  <p className={`${PriorityCardStyle.CenterText}`}>Low Priority</p>
+                </div>
+            </div>
+           <div className={`${PriorityCardStyle.RightSideDivs}`}>
+           <div className={`${PriorityCardStyle.PriorityTotal} ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}> 
+              <div className={`${PriorityCardStyle.PriorityFonts}`}>{mediumPriorityCount}</div>
+              <p className={`${PriorityCardStyle.CenterText}`}>Medium Priority</p>
+            </div>
             <div className={`${PriorityCardStyle.PriorityTotal} ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}>
-              <p className={`${PriorityCardStyle.CenterText}`}>Total Tasks:</p>
-              {lowPriorityCount + mediumPriorityCount + highPriorityCount}</div>
-            <div className={`${PriorityCardStyle.PriorityLow} ${PriorityCardStyle.PriorityCardSize}`}>{lowPriorityCount}</div>
+              <div className={`${PriorityCardStyle.PriorityFonts}`}>{highPriorityCount}</div>
+              <p className={`${PriorityCardStyle.CenterText}`}>High Priority</p>
+            </div>
+            </div>
+            <div className={`${PriorityCardStyle.Graph}`}></div>
           </div>
-          <div className={`${PriorityCardStyle.RightSideDivs}`}> 
-            <div className={`${PriorityCardStyle.PriorityMedium} ${PriorityCardStyle.PriorityCardSize}`}>{mediumPriorityCount}</div>
-            <div className={`${PriorityCardStyle.PriorityHigh} ${PriorityCardStyle.PriorityCardSize}`}>{highPriorityCount}</div></div>
-          <div className={`${PriorityCardStyle.Graph}`}></div>
         </div>
       </>
     );
