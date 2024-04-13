@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ITask from "../types/task";
 import * as HelperFunctions from "../HelperFunctions/TaskSorts";
 import PriorityCardStyle from "../styles/PriorityDataCardStyle.module.css";
-
+import ChartPie from "./ChartPie";
 
 
 interface PriorityDataCardInterface {
@@ -48,7 +48,9 @@ const PriorityDataCard = ({tasks, className}:PriorityDataCardInterface) => {
               <p className={`${PriorityCardStyle.CenterText}`}>High Priority</p>
             </div>
             </div>
-            <div className={`${PriorityCardStyle.Graph}`}></div>
+            <div className={`${PriorityCardStyle.Graph}`}>
+              <ChartPie LowPriorityCount={lowPriorityCount} MediumPriorityCount={mediumPriorityCount} HighPriorityCount={highPriorityCount}/>
+            </div>
           </div>
         </div>
       </>
