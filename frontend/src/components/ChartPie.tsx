@@ -26,7 +26,7 @@ const ChartPie = (PriorityProps: ChartPieInterface) => {
 
   return (
     <>
-      <div style={{ width: "100%", height: "100%" }}>
+      <div className="py-2 ">
         <Chart
           chartType="PieChart"
           data={data}
