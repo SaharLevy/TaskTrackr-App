@@ -1,88 +1,95 @@
-
-.PriorityContainer{
-    display: flex;
-    justify-content:flex-start;
-    border-radius: 30px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 2rem 0rem 2rem 1rem ;
-    background-color:#F5F5F7 ;
-
+.PriorityContainer {
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 2rem 0rem 2rem 1rem;
+  background-color: #f5f5f7;
 }
-.PriorityDashboardContainer{
-    display: flex;
-    justify-content:flex-start;
-    border-radius: 30px;
-    margin-bottom: 10px;
-    padding: 2rem 0rem 0rem 1rem ;
-
-
+.PriorityDashboardContainer {
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  padding: 2rem 0rem 0rem 1rem;
 }
-.LeftSideDivs{
-    display: flex;
-    flex-direction: column;
+.LeftSideDivs {
+  display: flex;
+  flex-direction: column;
 }
-.RightSideDivs{
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
+.RightSideDivs {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
 }
-.PriorityCardSize{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid black;
-    border-radius: 10px;
-    height: 150px;
-    width: 200px;
-    box-shadow: 3px 2px 2px rgb(68, 60, 60);
-    background-color: #ffffff;
-
+.PriorityCardSize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 150px;
+  width: 200px;
+  box-shadow: 3px 2px 2px rgb(68, 60, 60);
+  background-color: #ffffff;
 }
-.CenterText{
-    font-weight:300;
-    color: #A1A6AA;
-    font-size:medium;
+.CenterText {
+  font-weight: 300;
+  color: #a1a6aa;
+  font-size: medium;
 }
-.CenterTextTitle{
-    position: absolute; 
-    top: 3%;
-    left: 2%;
-    width: 100%;
-    translate: 1%;
+.CenterTextTitle {
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  width: 100%;
+  translate: 1%;
 }
-.CenterDivTitle{
-    margin: 1rem 1rem 1rem 1rem;
+.CenterDivTitle {
+  margin: 1rem 1rem 1rem 1rem;
 }
-.PositionRelative{
-    position: relative;
+.PositionRelative {
+  position: relative;
 }
-.PriorityFonts{
-    font-weight: bold;
-    font-size: 50px;
+.PriorityFonts {
+  font-weight: bold;
+  font-size: 50px;
 }
 
-
-.PriorityCardTotalSize{}
-.PriorityTotal{
-margin-bottom: 20px;
+.PriorityCardTotalSize {
+}
+.PriorityTotal {
+  margin-bottom: 20px;
 }
 
-.PriorityLow{}
-.PriorityMedium{
-    margin-bottom: 20px;
+.PriorityLow {
 }
-.PriorityHigh{}
-.Graph{
-    height: 320px;
-    width: 400px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 3px 2px 2px rgb(68, 60, 60);
-    margin-left: 15px;
+.PriorityMedium {
+  margin-bottom: 20px;
 }
-.InnerGraph{
-    border-radius: 10px;
+.PriorityHigh {
+}
+.Graph {
+  /* height: 320px; */
+  /* width: 400px; */
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 2px 2px rgb(68, 60, 60);
+  margin-left: 15px;
+  background-color: red;
+  /* padding: 10px; */
+}
+.InnerGraph {
+  border-radius: 10px;
+}
+.PaddingTop {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 100%;
+  height: 100%;
 }
