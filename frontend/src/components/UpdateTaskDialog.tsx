@@ -22,13 +22,14 @@ const UpdateTaskDialog = ({
     formState: { errors, isSubmitting },
   } = useForm<ITask>();
   const handleClose = () => setUpdateTaskDialog(false);
-  const [TaskPriority, SetTaskPriority] = useState("");
+  const [TaskPriority, SetTaskPriority] = useState(task.priority);
 
   const handlePriorityClick = (priority: any) => {
     SetTaskPriority(priority);
   };
 
   async function onSubmit(data: ITask) {
+    console.table(data);
     try {
       const taskData: ITask = {
         _id: task._id,
@@ -37,10 +38,10 @@ const UpdateTaskDialog = ({
         priority: TaskPriority,
       };
       handleClose();
-      const taskResponse = await tasks_api_functions.updateTaskById(taskData);
+      await tasks_api_functions.updateTaskById(taskData);
       updateTaskList();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert(error);
     }
   }
