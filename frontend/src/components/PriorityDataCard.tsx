@@ -35,7 +35,7 @@ const PriorityDataCard = ({ tasks, className }: PriorityDataCardInterface) => {
             id="priority-card-left"
           >
             <div
-              className={`${PriorityCardStyle.PriorityTotal} ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}
+              className={`${PriorityCardStyle.PriorityTotal} ${PriorityCardStyle.PriorityCardSize} `}
             >
               <div className={`${PriorityCardStyle.PriorityFonts}`}>
                 {lowPriorityCount + mediumPriorityCount + highPriorityCount}
@@ -55,9 +55,7 @@ const PriorityDataCard = ({ tasks, className }: PriorityDataCardInterface) => {
             className="d-flex flex-column justify-content-between"
             id="priority-card-mid"
           >
-            <div
-              className={` ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}
-            >
+            <div className={` ${PriorityCardStyle.PriorityCardSize}`}>
               <div className={`${PriorityCardStyle.PriorityFonts}`}>
                 {mediumPriorityCount}
               </div>
@@ -65,9 +63,7 @@ const PriorityDataCard = ({ tasks, className }: PriorityDataCardInterface) => {
                 Medium Priority
               </p>
             </div>
-            <div
-              className={` ${PriorityCardStyle.PriorityCardSize} ${PriorityCardStyle.PositionRelative}`}
-            >
+            <div className={` ${PriorityCardStyle.PriorityCardSize}`}>
               <div className={`${PriorityCardStyle.PriorityFonts}`}>
                 {highPriorityCount}
               </div>
