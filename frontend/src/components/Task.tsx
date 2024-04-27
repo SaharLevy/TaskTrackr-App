@@ -5,6 +5,7 @@ import TaskTimeStamp from "./TaskTimeStamp";
 import TaskStyle from "../styles/TaskPage.module.css";
 import { ObjectId } from "mongoose";
 import * as TasksApi from "../network/tasks_api";
+import { BsTrash3Fill } from "react-icons/bs";
 
 interface TaskProps {
   task: ITask;
@@ -34,15 +35,14 @@ const Task = ({ task, className, deleteTask, onClick }: TaskProps) => {
       <div className={styles.cardFooter}>
         <TaskTimeStamp timestamp={createdAt}>Created: </TaskTimeStamp>
         <TaskTimeStamp timestamp={updatedAt}>Last Updated: </TaskTimeStamp>
-        <Button
-          variant="dark"
+        <BsTrash3Fill
           onClick={(event) => {
             event.stopPropagation();
             deleteTask(_id);
           }}
         >
           Delete
-        </Button>
+        </BsTrash3Fill>
       </div>
     </Card>
   );

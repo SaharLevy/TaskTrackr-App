@@ -31,7 +31,7 @@ const PriorityDataCard = ({ tasks, className }: PriorityDataCardInterface) => {
         </h4>
         <div className={`${PriorityCardStyle.PriorityDashboardContainer}`}>
           <div
-            className="d-flex flex-column justify-content-between"
+            className="d-flex flex-column justify-content-between gap-3"
             id="priority-card-left"
           >
             <div
@@ -52,7 +52,7 @@ const PriorityDataCard = ({ tasks, className }: PriorityDataCardInterface) => {
             </div>
           </div>
           <div
-            className="d-flex flex-column justify-content-between"
+            className="d-flex flex-column justify-content-between gap-3"
             id="priority-card-mid"
           >
             <div className={` ${PriorityCardStyle.PriorityCardSize}`}>
