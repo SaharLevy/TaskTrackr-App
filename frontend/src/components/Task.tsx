@@ -29,20 +29,20 @@ const Task = ({ task, className, deleteTask, onClick }: TaskProps) => {
       className={`${styles.taskCard} ${TaskStyle.task} ${priorityClass[priority]}`}
     >
       <Card.Body className={styles.cardBody}>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title className="d-flex justify-content-between">
+          <span>{title}</span>
+          <BsTrash3Fill
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteTask(_id);
+            }}
+          ></BsTrash3Fill>
+        </Card.Title>
         <Card.Text className={styles.cardText}>{text}</Card.Text>
       </Card.Body>
       <div className={styles.cardFooter}>
         <TaskTimeStamp timestamp={createdAt}>Created: </TaskTimeStamp>
         <TaskTimeStamp timestamp={updatedAt}>Last Updated: </TaskTimeStamp>
-        <BsTrash3Fill
-          onClick={(event) => {
-            event.stopPropagation();
-            deleteTask(_id);
-          }}
-        >
-          Delete
-        </BsTrash3Fill>
       </div>
     </Card>
   );
