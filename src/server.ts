@@ -5,7 +5,8 @@ import { Request, Response, NextFunction } from "express";
 
 import env from "./util/validateEnv";
 //import todosRoutes from "./backend/routes/todos";
-import clientRoutes from "./backend/routes/clientRoutes";
+import taskRoutes from "./backend/routes/taskRoutes";
+import userRoutes from "./backend/routes/userRoutes";
 
 app.use(bodyParser.json());
 
@@ -20,7 +21,8 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-app.use(clientRoutes);
+app.use(taskRoutes);
+app.use("/api/user", userRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(Error("Route not found"));
