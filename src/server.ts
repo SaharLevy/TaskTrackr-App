@@ -4,9 +4,12 @@ import bodyParser from "body-parser";
 import { Request, Response, NextFunction } from "express";
 
 import env from "./util/validateEnv";
-//import todosRoutes from "./backend/routes/todos";
 import taskRoutes from "./backend/routes/taskRoutes";
 import userRoutes from "./backend/routes/userRoutes";
+
+import passport from "passport";
+import LocalStrategy from "passport-local";
+import session from "express-session";
 
 app.use(bodyParser.json());
 
@@ -21,6 +24,18 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(taskRoutes);
 app.use("/api/user", userRoutes);
 
