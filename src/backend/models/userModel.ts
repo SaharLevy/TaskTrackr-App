@@ -1,4 +1,5 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Schema, model, Model } from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema({
   email: {
@@ -14,12 +15,21 @@ const userSchema = new Schema({
 
 type User = InferSchemaType<typeof userSchema>;
 
-userSchema.statics.signup = async (email: String, password: String) => {
-  const emailExist = await this.findOne({ email });
+interface UserModel extends Model<User> {
+  signUp(email: string, password: string): Promise<User>;
+}
 
-  if (emailExist) {
+userSchema.statics.signUp = async function (email, password) {
+  const emailExists = await this.findOne({ email });
+  if (emailExists) {
     throw Error("Email already in use");
   }
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const user = await this.create({ email, password: hashedPassword });
+
+  return user;
 };
 
-export default model<User>("User", userSchema);
+export default model<User, UserModel>("User", userSchema);
