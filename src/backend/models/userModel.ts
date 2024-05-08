@@ -1,5 +1,6 @@
 import { InferSchemaType, Schema, model, Model } from "mongoose";
 import bcrypt from "bcrypt";
+import validator from "validator";
 
 const userSchema = new Schema({
   email: {
@@ -19,7 +20,18 @@ interface UserModel extends Model<User> {
   signUp(email: string, password: string): Promise<User>;
 }
 
-userSchema.statics.signUp = async function (email, password) {
+userSchema.statics.signUp = async function (email, password): Promise<User> {
+  //validation
+  if (!email || !password) {
+    throw Error("Email and password are required");
+  }
+  if (!validator.isEmail(email)) {
+    throw Error("Email is not valid");
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Password is not strong enough");
+  }
+
   const emailExists = await this.findOne({ email });
   if (emailExists) {
     throw Error("Email already in use");

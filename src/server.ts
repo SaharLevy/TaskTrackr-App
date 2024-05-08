@@ -8,7 +8,6 @@ import taskRoutes from "./backend/routes/taskRoutes";
 import userRoutes from "./backend/routes/userRoutes";
 
 import passport from "passport";
-import LocalStrategy from "passport-local";
 import session from "express-session";
 
 app.use(bodyParser.json());
