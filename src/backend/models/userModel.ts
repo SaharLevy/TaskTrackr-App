@@ -20,7 +20,7 @@ interface UserModel extends Model<User> {
   signUp(email: string, password: string): Promise<User>;
 }
 
-userSchema.statics.signUp = async function (email, password): Promise<User> {
+userSchema.statics.signUp = async function (email, password) {
   //validation
   if (!email || !password) {
     throw Error("Email and password are required");
