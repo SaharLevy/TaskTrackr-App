@@ -11,7 +11,22 @@ const createToken = (email: string) => {
 //login user
 
 export const logingUser = async (req: Request, res: Response) => {
-  res.json({ messege: "login user" });
+  const { email, password } = req.body;
+  try {
+    const user = await UserModel.login(email, password);
+
+    //create token
+    const token = createToken(user.email);
+
+    res.status(200).json({ user, token });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      // Handle the case where error is not an Error object
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
+  }
 };
 
 //signup user

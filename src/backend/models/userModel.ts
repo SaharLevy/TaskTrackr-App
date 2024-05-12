@@ -18,6 +18,7 @@ type User = InferSchemaType<typeof userSchema>;
 
 interface UserModel extends Model<User> {
   signUp(email: string, password: string): Promise<User>;
+  login(email: string, password: string): Promise<User>;
 }
 
 userSchema.statics.signUp = async function (email, password) {
@@ -41,6 +42,21 @@ userSchema.statics.signUp = async function (email, password) {
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = await this.create({ email, password: hashedPassword });
 
+  return user;
+};
+
+userSchema.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw Error("Email and password are required");
+  }
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Incorrect email");
+  }
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) {
+    throw Error("Incorrect password");
+  }
   return user;
 };
 
