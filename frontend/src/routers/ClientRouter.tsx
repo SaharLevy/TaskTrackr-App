@@ -6,6 +6,7 @@ import Signup from "../components/Signup";
 
 const Layout = ({ children, isAuthRoute }: any) => {
   const isLoggedIn = true; //TODO: check if user is logged in from session
+  // isAuthRoute is a boolean that tells us if the route is an authentication route, ROUTE THAT DOES REQUIRE AUTHENTICATION
   return (
     <>
       <MainNavBar />
