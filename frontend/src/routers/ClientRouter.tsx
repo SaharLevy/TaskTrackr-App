@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainNavBar from "../components/MainNavBar";
 import TaskList from "../components/TaskList";
 import Signup from "../components/Signup";
+import Login from "../components/Login";
 
 const Layout = ({ children, isAuthRoute }: any) => {
   const isLoggedIn = true; //TODO: check if user is logged in from session
@@ -45,8 +46,8 @@ export const ClientRouter = () => {
         <Route
           path="/login"
           element={
-            <Layout isAuthRoute={true}>
-              <h1>login</h1>
+            <Layout>
+              <Login />
             </Layout>
           }
         />
