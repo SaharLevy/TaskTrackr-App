@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import { Request, Response, NextFunction } from "express";
 
-import env from "./util/validateEnv";
-import taskRoutes from "./backend/routes/taskRoutes";
-import userRoutes from "./backend/routes/userRoutes";
+import env from "../util/validateEnv";
+import taskRoutes from "./routes/taskRoutes";
+import userRoutes from "./routes/userRoutes";
 
 import passport from "passport";
 import session from "express-session";

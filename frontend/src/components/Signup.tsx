@@ -1,10 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import User from "../types/user";
-import * as user_api_functions from "../network/user_api";
+import { useSignup } from "../hooks/useSignup";
 import { Button, Container, Form } from "react-bootstrap";
 import styles from "../styles/UserSignup.module.css";
 
 export default function Signup() {
+  const { signup, error, isLoading } = useSignup();
   const {
     register,
     handleSubmit,
@@ -17,7 +18,7 @@ export default function Signup() {
         email: data.email,
         password: data.password,
       };
-      const taskResponse = await user_api_functions.createUser(newUser);
+      await signup(newUser);
     } catch (error) {
       console.error(error);
     }

@@ -15,7 +15,7 @@ export default function Login() {
         email: data.email,
         password: data.password,
       };
-      const taskResponse = await user_api_functions.createUser(newUser);
+      //const taskResponse = await user_api_functions.createUser(newUser);
     } catch (error) {
       console.error(error);
     }
