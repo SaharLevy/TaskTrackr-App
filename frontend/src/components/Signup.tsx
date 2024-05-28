@@ -19,6 +19,7 @@ export default function Signup() {
         password: data.password,
       };
       await signup(newUser);
+      alert("User created successfully");
     } catch (error) {
       console.error(error);
     }

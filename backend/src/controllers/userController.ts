@@ -32,9 +32,9 @@ export const logingUser = async (req: Request, res: Response) => {
 //signup user
 
 export const signupUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
   try {
-    const user = await UserModel.signUp(email, password);
+    const user = await UserModel.signUp(name, email, password);
 
     //create token
     const token = createToken(user.email);
