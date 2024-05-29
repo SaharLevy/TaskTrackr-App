@@ -1,6 +1,5 @@
 export default interface User {
-  [x: string]: any;
-  fullname?: string;
+  fullName?: string;
   email: string;
   password: string;
 }

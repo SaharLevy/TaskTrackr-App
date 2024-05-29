@@ -14,12 +14,11 @@ export default function Signup() {
   const onSubmit: SubmitHandler<User> = async (data) => {
     try {
       const newUser: User = {
-        fullname: data.fullname,
+        fullName: data.fullName,
         email: data.email,
         password: data.password,
       };
       await signup(newUser);
-      alert("User created successfully");
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +35,7 @@ export default function Signup() {
           <Form.Group className="mb-3" controlId="formBasicUserFullName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              {...register("fullname", { required: true })}
+              {...register("fullName", { required: true })}
               type="fullname"
             />
           </Form.Group>
@@ -61,9 +60,10 @@ export default function Signup() {
           {/* errors will return when field validation fails  */}
           {errors.password && <span>This field is required</span>}
 
-          <Button variant="primary" type="submit">
+          <Button disabled={isLoading ?? false} variant="primary" type="submit">
             Submit
           </Button>
+          {error && <div className={`p-1 mt-3 ${styles.error}`}>{error}</div>}
         </Form>
       </Container>
     </>
