@@ -5,9 +5,11 @@ import "../styles/CenterTheNavbar.module.css";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const MainNavBar = () => {
   const { logout } = useLogout();
+  const { user } = useAuthContext();
 
   const handleClick = () => {
     logout();
@@ -23,20 +25,24 @@ const MainNavBar = () => {
           <Nav.Link as={Link} to="/account">
             Account
           </Nav.Link>
-
-          <button
-            className="btn btn-outline-success btn-sm"
-            onClick={handleClick}
-          >
-            Log out
-          </button>
-
-          <Nav.Link as={Link} to="/signup">
-            Signup
-          </Nav.Link>
-          <Nav.Link as={Link} to="/login">
-            Login
-          </Nav.Link>
+          {user && (
+            <button
+              className="btn btn-outline-success btn-sm"
+              onClick={handleClick}
+            >
+              Log out
+            </button>
+          )}
+          {!user && (
+            <>
+              <Nav.Link as={Link} to="/signup">
+                Signup
+              </Nav.Link>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+            </>
+          )}
         </Nav>
       </Container>
     </Navbar>
