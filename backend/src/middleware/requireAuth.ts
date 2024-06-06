@@ -17,6 +17,7 @@ export const requireAuth = async (
   const token = authorization.split(" ")[1]; // Use optional chaining to handle undefined value
 
   try {
+    console.log("token", token);
     const { email } = jwt.verify(
       token,
       process.env.SECRET as string

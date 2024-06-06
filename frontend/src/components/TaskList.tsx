@@ -8,16 +8,25 @@ import { ObjectId } from "mongoose";
 import OrderByButton from "./OrderByButton";
 import UpdateTaskDialog from "./UpdateTaskDialog";
 import PriorityDataCard from "./PriorityDataCard";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [showAddTaskDialog, setAddTaskDialog] = useState(false);
   const [showUpdateTaskDialog, setUpdateTaskDialog] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const { user } = useAuthContext();
 
   async function loadTasks() {
+    if (!user) {
+      console.error("No user logged in");
+      return;
+    }
     try {
-      const tasks = await TasksApi.fetchTasks();
+      const headers = {
+        Authorization: `Bearer ${user?.token}`,
+      };
+      const tasks = await TasksApi.fetchTasks(headers);
       setTasks(tasks);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -26,10 +35,19 @@ const TaskList = () => {
   }
 
   async function handlerDeleteTask(deletedTaskId: ObjectId) {
+    if (!user) {
+      console.error("No user logged in");
+      return;
+    }
+
+    const headers = {
+      Authorization: `Bearer ${user?.token}`,
+    };
+
     setTasks((prevTasks) =>
       prevTasks.filter((task) => task._id !== deletedTaskId)
     );
-    await TasksApi.deleteTaskById(deletedTaskId);
+    await TasksApi.deleteTaskById(deletedTaskId, headers);
   }
 
   const handleTaskClick = (task: ITask) => {

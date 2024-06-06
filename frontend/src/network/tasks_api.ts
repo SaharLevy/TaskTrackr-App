@@ -13,43 +13,42 @@ async function fetchData(input: RequestInfo, init?: RequestInit) {
   }
 }
 
-export async function fetchTasks(): Promise<Task[]> {
+export async function fetchTasks(headers?: HeadersInit): Promise<Task[]> {
   const response = await fetchData("api/", {
     method: "GET",
+    headers: headers,
   });
   return response.json();
 }
 
-/*export interface TaskInput {
-  title: string;
-  text?: string;
-  priority: string;
-}*/
-
-export async function createTask(task: Task): Promise<Task> {
+export async function createTask(
+  task: Task,
+  headers?: HeadersInit
+): Promise<Task> {
   const response = await fetchData("api/createTask", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...headers,
     },
     body: JSON.stringify(task),
   });
   return response.json();
 }
 
-export async function deleteTaskById(taskId: ObjectId) {
+export async function deleteTaskById(taskId: ObjectId, headers?: HeadersInit) {
   const response = await fetchData(`/api/deleteTask/${taskId}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...headers },
   });
 
   return response.status;
 }
 
-export async function updateTaskById(task: Task) {
+export async function updateTaskById(task: Task, headers?: HeadersInit) {
   const response = await fetchData(`/api/updateTask/${task._id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify(task),
   });
   return response.status;

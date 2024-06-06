@@ -35,8 +35,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(taskRoutes);
 app.use("/api/user", userRoutes);
+app.use(taskRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(Error("Route not found"));
