@@ -17,7 +17,9 @@ const MainNavBar = () => {
   return (
     <Navbar data-bs-theme="light">
       <Container className="d-flex justify-content-center border-bottom ps-0 pe-0">
-        <Navbar.Brand href="/">TaskTrackr</Navbar.Brand>
+        <Link to="/" className="navbar-brand">
+          TaskTrackr
+        </Link>
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/">
             Home

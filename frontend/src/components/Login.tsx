@@ -3,7 +3,6 @@ import User from "../types/user";
 import * as user_api_functions from "../network/user_api";
 import { Button, Container, Form } from "react-bootstrap";
 import { useLogin } from "../hooks/useLogin";
-import { log } from "console";
 import styles from "../styles/UserSignup.module.css";
 
 export default function Login() {
