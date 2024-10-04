@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-import { set } from "mongoose";
-import User from "../types/user";
 import * as user_api_functions from "../network/user_api";
 
 export const useLogin = () => {
@@ -23,8 +21,11 @@ export const useLogin = () => {
       const json = await response.json();
 
       // save the user in local storage
-      localStorage.setItem("user", JSON.stringify(json));
-
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...json.user, token: json.token })
+      );
+      console.log("Login response:", json);
       //update the auth context
       dispatch({ type: "LOGIN", payload: json });
     } catch (error: any) {

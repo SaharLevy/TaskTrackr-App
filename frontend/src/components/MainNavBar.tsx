@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import "../styles/CenterTheNavbar.module.css";
+import styles from "../styles/Navbar.module.css";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useLogout } from "../hooks/useLogout";
@@ -14,12 +14,14 @@ const MainNavBar = () => {
   const handleClick = () => {
     logout();
   };
+
   return (
-    <Navbar data-bs-theme="light">
-      <Container className="d-flex justify-content-center border-bottom ps-0 pe-0">
-        <Link to="/" className="navbar-brand">
+    <Navbar className="navbar-transparent">
+      <Container className={`${styles.ContainerStyle} px-0`}>
+        {/* Left section */}
+        <Navbar.Brand as={Link} to="/">
           TaskTrackr
-        </Link>
+        </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/">
             Home
@@ -27,15 +29,19 @@ const MainNavBar = () => {
           <Nav.Link as={Link} to="/account">
             Account
           </Nav.Link>
-          {user && (
-            <button
-              className="btn btn-outline-success btn-sm"
+        </Nav>
+
+        {/* Right section */}
+        <Nav className="ms-auto">
+          {user ? (
+            <Button
+              className="btn-sm"
+              variant="outline-success"
               onClick={handleClick}
             >
               Log out
-            </button>
-          )}
-          {!user && (
+            </Button>
+          ) : (
             <>
               <Nav.Link as={Link} to="/signup">
                 Signup

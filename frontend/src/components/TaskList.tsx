@@ -64,11 +64,11 @@ const TaskList = () => {
     loadTasks();
   };
   return (
-    <Container>
-      <Container>
+    <Container className="px-0">
+      <Container className="px-0">
         <PriorityDataCard tasks={tasks}></PriorityDataCard>
       </Container>
-      <Row className="d-flex  justify-content-between ">
+      <Container className="d-flex  justify-content-between px-0 ">
         <Col xs="auto">
           <OrderByButton tasks={tasks} setTasks={setTasks} />
         </Col>
@@ -79,7 +79,7 @@ const TaskList = () => {
             updateTaskList={updateTaskList}
           />
         </Col>
-      </Row>
+      </Container>
       <Row xs={1} md={2} xl={3} className="g-4">
         {tasks.map((task) => (
           <Col key={task._id ? task._id.toString() : "no-id"}>

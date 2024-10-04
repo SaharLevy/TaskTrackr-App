@@ -11,10 +11,10 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Layout from "../components/Layout";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const ClientRouter = () => {
   const { user } = useAuthContext();
-  const isLoggedIn = !!user;
 
   return (
     <Router>
@@ -22,31 +22,27 @@ export const ClientRouter = () => {
         <Route
           path="/"
           element={
-            isLoggedIn ? (
+            <ProtectedRoute>
               <Layout>
                 <TaskList />
               </Layout>
-            ) : (
-              <Navigate to="/login" />
-            )
+            </ProtectedRoute>
           }
         />
         <Route
           path="/tasks"
           element={
-            isLoggedIn ? (
+            <ProtectedRoute>
               <Layout>
-                <h1>ssssss</h1>
+                <h1>Tasks</h1>
               </Layout>
-            ) : (
-              <Navigate to="/login" />
-            )
+            </ProtectedRoute>
           }
         />
         <Route
           path="/login"
           element={
-            !isLoggedIn ? (
+            !user ? (
               <Layout>
                 <Login />
               </Layout>
@@ -58,7 +54,7 @@ export const ClientRouter = () => {
         <Route
           path="/signup"
           element={
-            !isLoggedIn ? (
+            !user ? (
               <Layout>
                 <Signup />
               </Layout>
