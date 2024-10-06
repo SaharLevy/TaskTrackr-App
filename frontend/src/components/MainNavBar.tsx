@@ -34,13 +34,9 @@ const MainNavBar = () => {
         {/* Right section */}
         <Nav className="ms-auto">
           {user ? (
-            <Button
-              className="btn-sm"
-              variant="outline-success"
-              onClick={handleClick}
-            >
+            <Nav.Link as={Link} to="/login" onClick={handleClick}>
               Log out
-            </Button>
+            </Nav.Link>
           ) : (
             <>
               <Nav.Link as={Link} to="/signup">

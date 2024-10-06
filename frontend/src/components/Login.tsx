@@ -27,7 +27,9 @@ export default function Login() {
 
   return (
     <>
-      <Container className="mt-4 d-flex align-items-center flex-column">
+      <Container
+        className={`${styles.signupContainer} mt-4 py-3 d-flex align-items-center flex-column`}
+      >
         <h2 className="fw-bold pb-2">Please Login! </h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
           {/* register your input into the hook by invoking the "register" function */}
