@@ -15,17 +15,17 @@ const TaskList = () => {
   const [showAddTaskDialog, setAddTaskDialog] = useState(false);
   const [showUpdateTaskDialog, setUpdateTaskDialog] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
-  const { user } = useAuthContext();
-
+  const { user, loading } = useAuthContext();
+  const headers = {
+    Authorization: `Bearer ${user?.token}`,
+    User: user._id,
+  };
   async function loadTasks() {
     if (!user) {
       console.error("No user logged in");
       return;
     }
     try {
-      const headers = {
-        Authorization: `Bearer ${user?.token}`,
-      };
       const tasks = await TasksApi.fetchTasks(headers);
       setTasks(tasks);
     } catch (error) {
@@ -40,10 +40,6 @@ const TaskList = () => {
       return;
     }
 
-    const headers = {
-      Authorization: `Bearer ${user?.token}`,
-    };
-
     setTasks((prevTasks) =>
       prevTasks.filter((task) => task._id !== deletedTaskId)
     );
@@ -57,8 +53,10 @@ const TaskList = () => {
   };
 
   useEffect(() => {
-    loadTasks();
-  }, []);
+    if (!loading && user && user._id) {
+      loadTasks(); // Only load tasks if user is available and has an _id
+    }
+  }, [user, loading]);
 
   const updateTaskList = () => {
     loadTasks();

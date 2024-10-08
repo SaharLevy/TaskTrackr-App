@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import ITask from "../types/task";
 import { useForm } from "react-hook-form";
 import * as tasks_api_functions from "../network/tasks_api";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface UpdateTaskDialogProps {
   setUpdateTaskDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +17,10 @@ const UpdateTaskDialog = ({
   task,
   updateTaskList,
 }: UpdateTaskDialogProps) => {
+  const { user } = useAuthContext();
+  const headers = {
+    Authorization: `Bearer ${user?.token}`,
+  };
   const {
     register,
     handleSubmit,
@@ -36,9 +41,10 @@ const UpdateTaskDialog = ({
         title: data.title,
         text: data.text,
         priority: TaskPriority,
+        userId: user._id,
       };
       handleClose();
-      await tasks_api_functions.updateTaskById(taskData);
+      await tasks_api_functions.updateTaskById(taskData, headers);
       updateTaskList();
     } catch (error) {
       console.error(error);

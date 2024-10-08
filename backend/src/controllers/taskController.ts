@@ -7,7 +7,14 @@ export const getTasks: RequestHandler = async (
   next: NextFunction
 ) => {
   try {
-    const tasks = await Task.find().exec();
+    const userId = req.headers["user"] as string;
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ error: "User ID not provided in headers." });
+    }
+    // Query for tasks belonging to this user
+    const tasks = await Task.find({ userId }).exec();
     res.status(200).json(tasks);
   } catch (error) {
     next(error);
@@ -36,12 +43,14 @@ export const createTask = async (
   const title = req.body.title;
   const text = req.body.text;
   const priority = req.body.priority;
+  const userId = req.body.userId;
 
   try {
     const newTask = await Task.create({
       title: title,
       text: text,
       priority: priority,
+      userId: userId, // Set the userId field to the logged-in user's _id
     });
     res.status(201).json(newTask);
   } catch (error) {

@@ -5,6 +5,7 @@ import ITask from "../types/task";
 import { useForm } from "react-hook-form";
 //import { TaskInput } from "../network/tasks_api";
 import * as tasks_api_functions from "../network/tasks_api";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface AddTaskDialogProps {
   onDismiss: () => void;
@@ -18,6 +19,10 @@ const AddTaskDialog = ({
   updateTaskList,
 }: AddTaskDialogProps) => {
   const [TaskPriority, SetTaskPriority] = useState("");
+  const { user } = useAuthContext();
+  const headers = {
+    Authorization: `Bearer ${user?.token}`,
+  };
   const {
     register,
     handleSubmit,
@@ -35,9 +40,13 @@ const AddTaskDialog = ({
         title: data.title,
         text: data.text,
         priority: TaskPriority,
+        userId: user._id,
       };
       onTaskSaved();
-      const taskResponse = await tasks_api_functions.createTask(taskData);
+      const taskResponse = await tasks_api_functions.createTask(
+        taskData,
+        headers
+      );
       // i should add a spinner animation here because there is a delay, the cause is fetching.
       //
       updateTaskList();

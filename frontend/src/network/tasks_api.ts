@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import Task from "../types/task";
+import ITask from "../types/task";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
   const response = await fetch(input, init);
@@ -13,7 +13,7 @@ async function fetchData(input: RequestInfo, init?: RequestInit) {
   }
 }
 
-export async function fetchTasks(headers?: HeadersInit): Promise<Task[]> {
+export async function fetchTasks(headers?: HeadersInit): Promise<ITask[]> {
   const response = await fetchData("api/", {
     method: "GET",
     headers: headers,
@@ -22,9 +22,9 @@ export async function fetchTasks(headers?: HeadersInit): Promise<Task[]> {
 }
 
 export async function createTask(
-  task: Task,
+  task: ITask,
   headers?: HeadersInit
-): Promise<Task> {
+): Promise<ITask> {
   const response = await fetchData("api/createTask", {
     method: "POST",
     headers: {
@@ -45,7 +45,7 @@ export async function deleteTaskById(taskId: ObjectId, headers?: HeadersInit) {
   return response.status;
 }
 
-export async function updateTaskById(task: Task, headers?: HeadersInit) {
+export async function updateTaskById(task: ITask, headers?: HeadersInit) {
   const response = await fetchData(`/api/updateTask/${task._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", ...headers },

@@ -5,6 +5,7 @@ export default interface ITask {
   title: string;
   text?: string;
   priority: string;
+  userId?: ObjectId;
   createdAt?: string;
   //change the date to string on the backend side
   updatedAt?: string;

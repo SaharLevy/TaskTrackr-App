@@ -23,8 +23,10 @@ export const useSignup = () => {
       const json = await response.json();
 
       // save the user in local storage
-      localStorage.setItem("user", JSON.stringify(json.user));
-
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...json.user, token: json.token })
+      );
       //update the auth context
       dispatch({ type: "LOGIN", payload: json });
     } catch (error: any) {

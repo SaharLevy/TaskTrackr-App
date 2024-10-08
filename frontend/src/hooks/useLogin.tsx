@@ -26,8 +26,10 @@ export const useLogin = () => {
         JSON.stringify({ ...json.user, token: json.token })
       );
       console.log("Login response:", json);
-      //update the auth context
-      dispatch({ type: "LOGIN", payload: json });
+      // Dispatch LOGIN action to update AuthContext
+      dispatch({ type: "LOGIN", payload: { ...json.user, token: json.token } });
+
+      setIsLoading(false);
     } catch (error: any) {
       setIsLoading(false);
       setError(error.message);
