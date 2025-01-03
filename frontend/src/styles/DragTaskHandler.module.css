@@ -1,0 +1,46 @@
+/* Draggable styling */
+.draggable {
+  width: auto; /* Let the draggable keep its natural width */
+  height: auto; /* Let the draggable keep its natural height */
+  display: inline-block; /* Prevent resizing due to parent layout */
+  position: absolute; /* Ensure draggable isn't influenced by layout flow */
+  z-index: 1001; /* Ensure it stays above other elements */
+  pointer-events: none; /* Avoid interactions affecting size during dragging */
+}
+
+.dropArea.active {
+  width: 100px;
+}
+.dropArea:hover {
+  background-color: green;
+}
+
+.dropArea {
+  background-color: rgba(0, 255, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #000000;
+  padding: 40vh 0vh 40vh 0vh;
+  border-radius: 5px;
+  width: 100%; /* Set a width to make it bigger */
+  height: 100vh; /* Set a height for the div */
+  margin: auto; /* Center it horizontally */
+}
+
+.droppableContainer {
+  height: 100vh;
+  width: 200px; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.taskListContainer {
+  display: flex;
+  width: 100%;
+  position: relative;
+  justify-content: space-between;
+}

@@ -11,10 +11,17 @@ interface TaskProps {
   task: ITask;
   className?: React.CSSProperties;
   deleteTask(deletedTaskId: ObjectId | undefined): void;
-  onClick?(): void;
+  onMouseUp?(e: React.MouseEvent): void;
+  onMouseDown?(e: React.MouseEvent): void;
 }
 
-const Task = ({ task, className, deleteTask, onClick }: TaskProps) => {
+const Task = ({
+  task,
+  className,
+  deleteTask,
+  onMouseDown,
+  onMouseUp,
+}: TaskProps) => {
   let { _id, title, text, priority, createdAt, updatedAt } = task;
 
   const priorityClass: any = {
@@ -25,7 +32,8 @@ const Task = ({ task, className, deleteTask, onClick }: TaskProps) => {
 
   return (
     <Card
-      onClick={onClick}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
       className={`${styles.taskCard} ${TaskStyle.task} ${priorityClass[priority]}`}
     >
       <Card.Body className={styles.cardBody}>

@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const ProtectedRoute = ({ children }: any) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading } = useAuthContext();
 
   if (loading) {
     return <div>Loading...</div>; // Show loading spinner

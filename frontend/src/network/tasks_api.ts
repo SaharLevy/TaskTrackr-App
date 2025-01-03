@@ -53,3 +53,14 @@ export async function updateTaskById(task: ITask, headers?: HeadersInit) {
   });
   return response.status;
 }
+
+//Created this function in order to communicate with the backend api need to work on the backend
+
+export async function completeTaskById(taskId: string, headers?: HeadersInit) {
+  const response = await fetchData(`/api/completeTask/${taskId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...headers },
+    body: JSON.stringify({ completed: true }), // Send the completion update
+  });
+  return response.status;
+}
