@@ -9,7 +9,15 @@ import OrderByButton from "./OrderByButton";
 import UpdateTaskDialog from "./UpdateTaskDialog";
 import PriorityDataCard from "./PriorityDataCard";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { closestCenter, DndContext, DragStartEvent } from "@dnd-kit/core";
+import {
+  closestCenter,
+  DndContext,
+  DragStartEvent,
+  DragOverlay,
+  useSensors,
+  useSensor,
+  PointerSensor,
+} from "@dnd-kit/core";
 import Draggable from "./Draggable";
 import Droppable from "./Droppable";
 import Style from "../styles/DragTaskHandler.module.css";
@@ -27,9 +35,16 @@ const TaskList = () => {
   const [showUpdateTaskDialog, setUpdateTaskDialog] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
   const { user, loading } = useAuthContext();
-  const [isHoldClick, setIsHoldClick] = useState(false); // To track whether it’s a drag or click
   const holdTimer = useRef<NodeJS.Timeout | null>(null); // Timer to distinguish between click and hold
   const [isDragging, setIsDragging] = useState(false); // To track dragging state
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 6,
+      },
+    })
+  );
 
   const headers = {
     Authorization: `Bearer ${user?.token}`,
@@ -51,6 +66,7 @@ const TaskList = () => {
   }
 
   async function handlerDeleteTask(deletedTaskId: ObjectId) {
+    console.log("Deleting task with ID:", deletedTaskId);
     if (!user) {
       console.error("No user logged in");
       return;
@@ -72,42 +88,6 @@ const TaskList = () => {
       console.error("Error completing task:", error);
     }
   }
-  const handleMouseDown = (e: React.MouseEvent) => {
-    window.checkForDrag = e.clientX;
-    setTimeout(() => {
-      if (isHoldClick) {
-        setIsHoldClick(true);
-        setIsDragging(true);
-      }
-    }, 300);
-  };
-
-  const handleMouseUp = (e: React.MouseEvent, task: ITask) => {
-    if (holdTimer.current) {
-      clearTimeout(holdTimer.current);
-    }
-    const mouseUp = e.clientX;
-    if (
-      mouseUp < window.checkForDrag + 5 &&
-      mouseUp > window.checkForDrag - 5
-    ) {
-      setIsHoldClick(false);
-      handleTaskClick(task);
-    } else {
-      setIsHoldClick(false);
-      setIsDragging(false);
-      // add logic for drag
-    }
-  };
-  const handleTaskClick = (task: ITask) => {
-    // Prevent click event if the task was dragged
-    if (!isHoldClick) {
-      // If not a hold (drag), trigger the click event for editing
-      console.log("Task clicked:", task);
-      setSelectedTask(task);
-      setUpdateTaskDialog(true);
-    }
-  };
 
   const handleDragStart = (event: DragStartEvent) => {
     setIsDragging(true);
@@ -144,7 +124,11 @@ const TaskList = () => {
   };
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
       {/* will add a div that will be the drop box */}
       <div className={Style.taskListContainer}>
         <Container className="px-0 ">
@@ -168,16 +152,12 @@ const TaskList = () => {
             {tasks.map((task) => (
               <Col key={task._id ? task._id.toString() : "no-id"}>
                 <Draggable id={task!._id!.toString()} data={task}>
-                  <div style={{ width: "100%", height: "100%" }}>
-                    <Task
-                      onMouseUp={(e: React.MouseEvent) =>
-                        handleMouseUp(e, task)
-                      }
-                      onMouseDown={handleMouseDown}
-                      task={task}
-                      deleteTask={handlerDeleteTask}
-                    />
-                  </div>
+                  <Task
+                    task={task}
+                    handlerDeleteTask={handlerDeleteTask}
+                    setUpdateTaskDialog={setUpdateTaskDialog}
+                    setSelectedTask={setSelectedTask}
+                  />
                 </Draggable>
               </Col>
             ))}
@@ -192,11 +172,9 @@ const TaskList = () => {
           )}
         </Container>
         {isDragging && (
-          <div className={Style.droppableContainer}>
+          <div>
             <Droppable id="droppable">
-              <div className={Style.dropArea}>
-                <span>Drop here to delete</span>
-              </div>
+              <span>Drop here to delete</span>
             </Droppable>
           </div>
         )}

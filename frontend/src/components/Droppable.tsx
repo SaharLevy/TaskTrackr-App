@@ -1,5 +1,6 @@
 import React from "react";
 import { useDndContext, useDroppable } from "@dnd-kit/core";
+import styles from "../styles/DragTaskHandler.module.css";
 
 interface Props {
   id: string;
@@ -7,27 +8,26 @@ interface Props {
 }
 
 const Droppable: React.FC<Props> = ({ id, children }) => {
-  const { active, over } = useDndContext();
+  const { active } = useDndContext();
   const { setNodeRef, isOver } = useDroppable({
     id: "droppable",
     data: {
       accepts: ["ITask", "type1"],
     },
   });
-  // Check if the task is being dropped
-  const task = active?.data?.current?.task;
-  const isDropped = over && over.id === id;
 
-  const droppableStyle: React.CSSProperties = {
-    backgroundColor: isOver ? "#f0f8ff" : "#fff", // Visual feedback for hovering
-    width: "300px",
-  };
+  const task = active?.data?.current?.task;
+
   return (
-    <div ref={setNodeRef} style={droppableStyle}>
+    <div
+      ref={setNodeRef}
+      className={styles.droppableContainer}
+      style={{
+        backgroundColor: isOver ? "rgba(0, 255, 0, 0.2)" : "transparent",
+        transition: "background-color 0.2s",
+      }}
+    >
       {children}
-      {isDropped && task ? (
-        <p>{`Task "${task.title}" was dropped on droppable area!!: ${id}`}</p>
-      ) : null}
     </div>
   );
 };
