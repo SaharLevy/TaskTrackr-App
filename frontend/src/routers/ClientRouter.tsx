@@ -12,6 +12,7 @@ import Login from "../components/Login";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Layout from "../components/Layout";
 import ProtectedRoute from "./ProtectedRoute";
+import AccountPage from "../components/AccountPage";
 
 export const ClientRouter = () => {
   const { user } = useAuthContext();
@@ -61,6 +62,16 @@ export const ClientRouter = () => {
             ) : (
               <Navigate to="/" />
             )
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AccountPage />
+              </Layout>
+            </ProtectedRoute>
           }
         />
       </Routes>

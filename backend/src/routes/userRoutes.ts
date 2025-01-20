@@ -7,4 +7,6 @@ router.post("/login", userController.logingUser);
 
 router.post("/signup", userController.signupUser);
 
+router.put("/update", userController.updateUser);
+
 export default router;

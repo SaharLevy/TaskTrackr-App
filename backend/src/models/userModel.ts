@@ -23,6 +23,12 @@ type User = InferSchemaType<typeof userSchema>;
 interface UserModel extends Model<User> {
   signUp(fullName: string, email: string, password: string): Promise<User>;
   login(email: string, password: string): Promise<User>;
+  update(
+    newFullName: string,
+    newEmail: string,
+    oldEmail: string,
+    password: string
+  ): Promise<User>;
 }
 
 userSchema.statics.signUp = async function (fullName, email, password) {
@@ -65,6 +71,47 @@ userSchema.statics.login = async function (email, password) {
     throw Error("Incorrect password");
   }
   return user;
+};
+
+userSchema.statics.update = async function (
+  newFullName,
+  newEmail,
+  oldEmail,
+  password
+) {
+  if (!oldEmail) {
+    throw Error("cant find user email in localstorage please login again");
+  }
+  const user = await this.findOne({ email: oldEmail });
+  if (!user) {
+    throw Error("Incorrect email");
+  }
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) {
+    throw Error("Incorrect password");
+  }
+  let updatedUser;
+  if (newFullName !== "noChange" && newEmail !== "noChange") {
+    updatedUser = await this.findOneAndUpdate(
+      { email: oldEmail },
+      { email: newEmail, fullName: newFullName }
+    );
+    return updatedUser;
+  }
+  if (newFullName === "noChange") {
+    updatedUser = await this.findOneAndUpdate(
+      { email: oldEmail },
+      { email: newEmail }
+    );
+    return updatedUser;
+  }
+  if (newEmail === "noChange") {
+    updatedUser = await this.findOneAndUpdate(
+      { email: oldEmail },
+      { fullName: newFullName }
+    );
+    return updatedUser;
+  }
 };
 
 export default model<User, UserModel>("User", userSchema);

@@ -2,6 +2,7 @@ import { ObjectId } from "mongoose";
 import ITask from "../types/task";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
+  console.log("Fetching URL:", input);
   const response = await fetch(input, init);
   if (response.ok) {
     //response.ok mean the http call is between 200-299

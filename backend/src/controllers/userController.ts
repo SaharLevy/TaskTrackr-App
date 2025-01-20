@@ -49,3 +49,27 @@ export const signupUser = async (req: Request, res: Response) => {
     }
   }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+  const { newFullName, newEmail, oldEmail, password } = req.body;
+  try {
+    const user = await UserModel.update(
+      newFullName,
+      newEmail,
+      oldEmail,
+      password
+    );
+
+    //create token
+    const token = createToken(user.email);
+
+    res.status(200).json({ user, token });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      // Handle the case where error is not an Error object
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
+  }
+};
