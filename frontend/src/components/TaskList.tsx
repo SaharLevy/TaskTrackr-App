@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import AddTaskButton from "./AddTaskButton";
 import Task from "./Task";
 import { useEffect, useRef, useState } from "react";
@@ -10,10 +10,8 @@ import UpdateTaskDialog from "./UpdateTaskDialog";
 import PriorityDataCard from "./PriorityDataCard";
 import { useAuthContext } from "../hooks/useAuthContext";
 import {
-  closestCenter,
   DndContext,
   DragStartEvent,
-  DragOverlay,
   useSensors,
   useSensor,
   PointerSensor,
@@ -31,6 +29,7 @@ declare global {
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [loadingTasks, setLoadingTasks] = useState(true); // Added line
   const [showAddTaskDialog, setAddTaskDialog] = useState(false);
   const [showUpdateTaskDialog, setUpdateTaskDialog] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
@@ -56,12 +55,15 @@ const TaskList = () => {
       console.error("No user logged in");
       return;
     }
+    setLoadingTasks(true); // Added line
     try {
       const tasks = await TasksApi.fetchTasks(headers);
       setTasks(tasks);
     } catch (error) {
       console.error("Error fetching tasks:", error);
       alert("Failed to fetch tasks. See console for details.");
+    } finally {
+      setLoadingTasks(false); // Added line
     }
   }
 
@@ -132,43 +134,57 @@ const TaskList = () => {
       {/* will add a div that will be the drop box */}
       <div className={Style.taskListContainer}>
         <Container className="px-0 ">
-          <Container className="px-0">
-            <PriorityDataCard tasks={tasks}></PriorityDataCard>
-          </Container>
-          <Container className="d-flex  justify-content-between px-0 ">
-            <Col xs="auto">
-              <OrderByButton tasks={tasks} setTasks={setTasks} />
-            </Col>
-            <Col className=" pe-0" xs="auto">
-              <AddTaskButton
-                showAddTaskDialog={showAddTaskDialog}
-                setAddTaskDialog={setAddTaskDialog}
-                updateTaskList={updateTaskList}
-              />
-            </Col>
-          </Container>
-
-          <Row xs={1} md={2} xl={3} className="g-4">
-            {tasks.map((task) => (
-              <Col key={task._id ? task._id.toString() : "no-id"}>
-                <Draggable id={task!._id!.toString()} data={task}>
-                  <Task
-                    task={task}
-                    handlerDeleteTask={handlerDeleteTask}
-                    setUpdateTaskDialog={setUpdateTaskDialog}
-                    setSelectedTask={setSelectedTask}
+          {loadingTasks ? ( // Added condition
+            <div className="d-flex justify-content-center my-4">
+              {" "}
+              {/* Added Spinner container */}
+              <Spinner animation="border" role="status">
+                {" "}
+                {/* Added Spinner */}
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <>
+              <Container className="px-0">
+                <PriorityDataCard tasks={tasks}></PriorityDataCard>
+              </Container>
+              <Container className="d-flex  justify-content-between px-0 ">
+                <Col xs="auto">
+                  <OrderByButton tasks={tasks} setTasks={setTasks} />
+                </Col>
+                <Col className=" pe-0" xs="auto">
+                  <AddTaskButton
+                    showAddTaskDialog={showAddTaskDialog}
+                    setAddTaskDialog={setAddTaskDialog}
+                    updateTaskList={updateTaskList}
                   />
-                </Draggable>
-              </Col>
-            ))}
-          </Row>
-          {selectedTask && (
-            <UpdateTaskDialog
-              setUpdateTaskDialog={setUpdateTaskDialog}
-              show={showUpdateTaskDialog}
-              task={selectedTask}
-              updateTaskList={updateTaskList}
-            />
+                </Col>
+              </Container>
+
+              <Row xs={1} md={2} xl={3} className="g-4">
+                {tasks.map((task) => (
+                  <Col key={task._id ? task._id.toString() : "no-id"}>
+                    <Draggable id={task!._id!.toString()} data={task}>
+                      <Task
+                        task={task}
+                        handlerDeleteTask={handlerDeleteTask}
+                        setUpdateTaskDialog={setUpdateTaskDialog}
+                        setSelectedTask={setSelectedTask}
+                      />
+                    </Draggable>
+                  </Col>
+                ))}
+              </Row>
+              {selectedTask && (
+                <UpdateTaskDialog
+                  setUpdateTaskDialog={setUpdateTaskDialog}
+                  show={showUpdateTaskDialog}
+                  task={selectedTask}
+                  updateTaskList={updateTaskList}
+                />
+              )}
+            </>
           )}
         </Container>
         {isDragging && (

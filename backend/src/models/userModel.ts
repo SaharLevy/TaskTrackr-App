@@ -86,32 +86,25 @@ userSchema.statics.update = async function (
   if (!user) {
     throw Error("Incorrect email");
   }
+
   const passwordMatch = await bcrypt.compare(password, user.password);
+
   if (!passwordMatch) {
     throw Error("Incorrect password");
   }
+
+  const emailExists = await this.findOne({ email: newEmail });
+  if (emailExists && emailExists.email !== oldEmail) {
+    throw Error("The email is already in use.");
+  }
+
   let updatedUser;
-  if (newFullName !== "noChange" && newEmail !== "noChange") {
-    updatedUser = await this.findOneAndUpdate(
-      { email: oldEmail },
-      { email: newEmail, fullName: newFullName }
-    );
-    return updatedUser;
-  }
-  if (newFullName === "noChange") {
-    updatedUser = await this.findOneAndUpdate(
-      { email: oldEmail },
-      { email: newEmail }
-    );
-    return updatedUser;
-  }
-  if (newEmail === "noChange") {
-    updatedUser = await this.findOneAndUpdate(
-      { email: oldEmail },
-      { fullName: newFullName }
-    );
-    return updatedUser;
-  }
+
+  updatedUser = await this.findOneAndUpdate(
+    { email: oldEmail },
+    { email: newEmail, fullName: newFullName }
+  );
+  return updatedUser;
 };
 
 export default model<User, UserModel>("User", userSchema);
