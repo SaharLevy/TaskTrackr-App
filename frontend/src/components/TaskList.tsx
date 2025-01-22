@@ -29,12 +29,11 @@ declare global {
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
-  const [loadingTasks, setLoadingTasks] = useState(true); // Added line
+  const [loadingTasks, setLoadingTasks] = useState(true);
   const [showAddTaskDialog, setAddTaskDialog] = useState(false);
   const [showUpdateTaskDialog, setUpdateTaskDialog] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
   const { user, loading } = useAuthContext();
-  const holdTimer = useRef<NodeJS.Timeout | null>(null); // Timer to distinguish between click and hold
   const [isDragging, setIsDragging] = useState(false); // To track dragging state
 
   const sensors = useSensors(
@@ -55,7 +54,7 @@ const TaskList = () => {
       console.error("No user logged in");
       return;
     }
-    setLoadingTasks(true); // Added line
+    setLoadingTasks(true);
     try {
       const tasks = await TasksApi.fetchTasks(headers);
       setTasks(tasks);
@@ -63,7 +62,7 @@ const TaskList = () => {
       console.error("Error fetching tasks:", error);
       alert("Failed to fetch tasks. See console for details.");
     } finally {
-      setLoadingTasks(false); // Added line
+      setLoadingTasks(false);
     }
   }
 
@@ -78,17 +77,6 @@ const TaskList = () => {
       prevTasks.filter((task) => task._id !== deletedTaskId)
     );
     await TasksApi.deleteTaskById(deletedTaskId, headers);
-  }
-
-  async function handleTaskComplete(taskId: string) {
-    try {
-      await TasksApi.completeTaskById(taskId, headers);
-      setTasks((prevTasks) =>
-        prevTasks.filter((task) => task._id && task._id.toString() !== taskId)
-      ); // Remove task from list
-    } catch (error) {
-      console.error("Error completing task:", error);
-    }
   }
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -110,8 +98,6 @@ const TaskList = () => {
         `Task "${droppedTask.title}" was dropped on droppable area: ${droppableId}`
       );
       handlerDeleteTask(droppedTask._id!);
-
-      // You can handle task completion or transfer here
     }
   };
 
