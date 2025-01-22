@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-import { set } from "mongoose";
 import User from "../types/user";
 import * as user_api_functions from "../network/user_api";
 

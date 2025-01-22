@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import MainNavBar from "../components/MainNavBar";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Navigate } from "react-router-dom";
 
 interface LayoutProps {
   children: ReactNode;

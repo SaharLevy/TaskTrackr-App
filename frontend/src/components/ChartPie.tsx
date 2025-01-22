@@ -1,5 +1,4 @@
 import { Chart } from "react-google-charts";
-import styles from "../styles/PriorityDataCardStyle.module.css";
 
 interface ChartPieInterface {
   LowPriorityCount: number;

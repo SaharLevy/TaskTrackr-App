@@ -1,6 +1,3 @@
-import { ObjectId } from "mongoose";
-import User from "../types/user";
-
 export async function fetchData(input: RequestInfo, init?: RequestInit) {
   console.log("Fetching URL:", input);
   const response = await fetch(input, init);

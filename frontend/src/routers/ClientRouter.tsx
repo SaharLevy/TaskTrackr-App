@@ -1,11 +1,9 @@
-import React, { ReactNode } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
-import MainNavBar from "../components/MainNavBar";
 import TaskList from "../components/TaskList";
 import Signup from "../components/Signup";
 import Login from "../components/Login";

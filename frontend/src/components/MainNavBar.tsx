@@ -3,7 +3,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "../styles/Navbar.module.css";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 

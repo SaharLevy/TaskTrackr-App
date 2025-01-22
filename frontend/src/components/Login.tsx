@@ -1,6 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import User from "../types/user";
-import * as user_api_functions from "../network/user_api";
 import { Button, Container, Form } from "react-bootstrap";
 import { useLogin } from "../hooks/useLogin";
 import styles from "../styles/UserSignup.module.css";
