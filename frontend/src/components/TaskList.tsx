@@ -4,7 +4,7 @@ import Task from "./Task";
 import { useEffect, useState } from "react";
 import ITask from "../types/task";
 import * as TasksApi from "../network/tasks_api";
-import { ObjectId } from "mongoose";
+import { ObjectId } from "bson";
 import OrderByButton from "./OrderByButton";
 import UpdateTaskDialog from "./UpdateTaskDialog";
 import PriorityDataCard from "./PriorityDataCard";

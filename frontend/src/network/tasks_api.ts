@@ -1,4 +1,4 @@
-import { ObjectId } from "mongoose";
+import { ObjectId } from "bson";
 import ITask from "../types/task";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {

@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import ITask from "../types/task";
 import TaskTimeStamp from "./TaskTimeStamp";
 import TaskStyle from "../styles/TaskPage.module.css";
-import { ObjectId } from "mongoose";
+import { ObjectId } from "bson";
 import { BsTrash3Fill } from "react-icons/bs";
 
 interface TaskProps {
