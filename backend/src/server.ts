@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import { Request, Response, NextFunction } from "express";
 
-import env from "../util/validateEnv";
+import env from "./util/validateEnv";
 import taskRoutes from "./routes/taskRoutes";
 import userRoutes from "./routes/userRoutes";
 
