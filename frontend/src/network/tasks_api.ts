@@ -1,6 +1,8 @@
 import { ObjectId } from "bson";
 import ITask from "../types/task";
 
+const apiUrl = process.env.REACT_APP_API_URL || "/api";
+
 async function fetchData(input: RequestInfo, init?: RequestInit) {
   console.log("Fetching URL:", input);
   const response = await fetch(input, init);
@@ -15,7 +17,7 @@ async function fetchData(input: RequestInfo, init?: RequestInit) {
 }
 
 export async function fetchTasks(headers?: HeadersInit): Promise<ITask[]> {
-  const response = await fetchData("api/", {
+  const response = await fetchData(`${apiUrl}`, {
     method: "GET",
     headers: headers,
   });
@@ -26,7 +28,7 @@ export async function createTask(
   task: ITask,
   headers?: HeadersInit
 ): Promise<ITask> {
-  const response = await fetchData("api/createTask", {
+  const response = await fetchData(`${apiUrl}/createTask`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +40,7 @@ export async function createTask(
 }
 
 export async function deleteTaskById(taskId: ObjectId, headers?: HeadersInit) {
-  const response = await fetchData(`/api/deleteTask/${taskId}`, {
+  const response = await fetchData(`${apiUrl}/deleteTask/${taskId}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json", ...headers },
   });
@@ -47,7 +49,7 @@ export async function deleteTaskById(taskId: ObjectId, headers?: HeadersInit) {
 }
 
 export async function updateTaskById(task: ITask, headers?: HeadersInit) {
-  const response = await fetchData(`/api/updateTask/${task._id}`, {
+  const response = await fetchData(`${apiUrl}/updateTask/${task._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify(task),
@@ -58,7 +60,7 @@ export async function updateTaskById(task: ITask, headers?: HeadersInit) {
 //Created this function in order to communicate with the backend api need to work on the backend
 
 export async function completeTaskById(taskId: string, headers?: HeadersInit) {
-  const response = await fetchData(`/api/completeTask/${taskId}`, {
+  const response = await fetchData(`${apiUrl}/completeTask/${taskId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify({ completed: true }), // Send the completion update

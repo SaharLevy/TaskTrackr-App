@@ -1,3 +1,5 @@
+const apiUrl = process.env.REACT_APP_API_URL || "/api";
+
 export async function fetchData(input: RequestInfo, init?: RequestInit) {
   console.log("Fetching URL:", input);
   const response = await fetch(input, init);
@@ -20,7 +22,7 @@ export async function updateUserRequest(
     password: string;
   }
 ): Promise<any> {
-  const response = await fetchData("api/user/update", {
+  const response = await fetchData(`${apiUrl}/user/update`, {
     method: "PUT",
     headers,
     body: JSON.stringify(body),

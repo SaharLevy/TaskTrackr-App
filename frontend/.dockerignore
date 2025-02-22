@@ -1,3 +1,11 @@
+# Ignore node_modules (dependencies will be reinstalled in the container)
 node_modules
-build
+
+# Ignore log files
 *.log
+
+# Ignore build output (generated during the image build)
+build
+
+# Ignore OS-specific files
+.DS_Store

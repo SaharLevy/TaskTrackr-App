@@ -7,18 +7,22 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { dispatch } = useAuthContext();
+  const apiUrl = process.env.REACT_APP_API_URL || "/api";
 
   const signup = async (newUser: User) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await user_api_functions.fetchData("api/user/signup/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await user_api_functions.fetchData(
+        `${apiUrl}/user/signup/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
       const json = await response.json();
 
       // save the user in local storage
